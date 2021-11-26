@@ -1,13 +1,14 @@
 const _ = require('lodash');
 const convertSnakeToCamel = require('./../lib/convertSnakeToCamel');
 
-const 함수이름 = async (client) => {
-    const { rows } = await client.query(
-      `
-      여기에 쿼리 작성
-      `,
-    );
+const getSchedule = async (client) => {
+  const { rows } = await client.query(
+    `
+    SELECT status FROM schedule
+    WHERE user_id=1
+    `,
+  );
   return convertSnakeToCamel.keysToCamel(rows);
 };
 
-module.exports = {함수이름 };
+module.exports = { getSchedule };
