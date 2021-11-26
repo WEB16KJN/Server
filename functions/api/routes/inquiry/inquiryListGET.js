@@ -17,10 +17,10 @@ module.exports = async (req, res) => {
 
     const questions = await questionDB.getQuestionsByDate(client, start, end);
 
-    if (questions) {
-      res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SUCCESS, questions));
+    if (questions.length === 0) {
+      res.status(statusCode.OK).send(util.success(statusCode.NO_CONTENT, responseMessage.NO_SEARCH_RESULT, questions));
     } else {
-      res.status(statusCode.NO_CONTENT).send(util.success(statusCode.NO_CONTENT, responseMessage.NO_SEARCH_RESULT, questions));
+      res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SUCCESS, questions));
     }
   } catch (error) {
     functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
