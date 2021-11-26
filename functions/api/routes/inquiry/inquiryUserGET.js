@@ -7,6 +7,7 @@ const db = require('../../../db/db');
 const { userDB } = require('../../../db');
 
 module.exports = async (req, res) => { //default user (id=1) 정보 반환
+  let client;
   try {
     client = await db.connect(req);
 

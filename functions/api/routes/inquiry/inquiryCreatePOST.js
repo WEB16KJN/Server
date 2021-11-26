@@ -20,12 +20,12 @@ module.exports = async (req, res) => {
         else{s=secret;}
         const question=await questionDB.postQuestion(client,title,s,name,phone,content);
         if(file){ //파일 경로 배열 body로 받았으면
-            for(f of file){
+            for(let f of file){
                 await fileDB.postFile(client,question.id,f)
             }
         }
         if(req.files){
-            for(f of req.files){ //multer로 req.files배열 받았으면
+            for(let f of req.files){ //multer로 req.files배열 받았으면
                 await fileDB.postFile(client,question.id,f)
             }
         }

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const path = require('path');
 
 router.get('/', require('./inquiryListGET'));
 router.get('/schedule', require('./inquiryScheduleGET'));
@@ -8,7 +9,7 @@ router.get('/profile',require('./inquiryUserGET'));
 const upload = multer({
     storage: multer.diskStorage({
       destination(req,file,cb){
-        cb(null, 'functions/uploads/');
+        cb(null, 'uploads/');
       },
       filename(req,file,cb){
         const ext = path.extname(file.originalname);
