@@ -7,8 +7,7 @@ const { likeDB } = require('../../../db');
 const { paperDB } = require('../../../db');
 
 module.exports = async (req, res) => {
-
-  const{id} = req.params;
+  const { id } = req.params;
   // 필요한 값이 없을 때 보내주는 response
   if (!id) return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
 
@@ -19,29 +18,30 @@ module.exports = async (req, res) => {
   try {
     // db/db.js에 정의한 connect 함수를 통해 connection pool에서 connection을 빌려옵니다.
     client = await db.connect(req);
-    
+
     // 빌려온 connection을 사용해 우리가 db/[파일].js에서 미리 정의한 SQL 쿼리문을 날려줍니다.
-    
+
     // 0. 실제로 있는 paper인지 확인
     const paper = await paperDB.getPaperByPaperId(client, id);
-    if (paper.length === 0){
+    if (paper.length === 0) {
       return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.OUT_OF_VALUE));
     }
+    console.log(paper);
 
     // 1. likeDB에서 paper_id에 해당하는 like 상태 가져오기
     const like = await likeDB.getLikeByPaperId(client, id);
-    let like_result;
+    let likeResult;
 
     // 2. like가 없다면 like 만들어주기
-    if (like.length === 0){
-      like_result = await likeDB.createLikeByPaperId(client, Number(1), Number(id));
-      like_result = like_result[0]
-
-    }
-    else{
+    if (like.length === 0) {
+      likeResult = await likeDB.createLikeByPaperId(client, Number(1), Number(id));
+      likeResult = likeResult[0];
+    } else {
       // is_deleted가 true면 false로 바꾸기
       // is_deleted가 false면 true로 바꾸기
-      like_result = await likeDB.updateLike(client, like[0].userId, like[0].paperId, like[0].isDeleted);
+      likeResult = await likeDB.updateLike(client, like[0].userId, like[0].paperId, like[0].isDeleted);
+    }
+
     //response로 보낼 paperResult 만들기
     const paperResult = {
       viewcount: paper[0].viewcount,
