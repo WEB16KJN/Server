@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
 
     const questions = await questionDB.getQuestionsByDate(client, start, end);
 
-    if (questions.length === 0) {
+    if (questions.length == 0) {
       res.status(statusCode.OK).send(util.success(statusCode.NO_CONTENT, responseMessage.NO_SEARCH_RESULT, questions));
     } else {
       res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SUCCESS, questions));
