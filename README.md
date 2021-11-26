@@ -174,3 +174,6 @@
 
 ### ERD:
 ![image](https://user-images.githubusercontent.com/42895142/143576401-4ad58bde-bcad-4c00-b541-e2d239f19abe.png)
+
+### API
+![API page](https://www.notion.so/storypanda/api-108886224b6d4c18aef486fb3c5bd95e)
