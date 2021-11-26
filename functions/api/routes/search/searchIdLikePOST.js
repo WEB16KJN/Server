@@ -1,10 +1,10 @@
 const functions = require('firebase-functions');
-const util = require('../../../lib/util');
-const statusCode = require('../../../constants/statusCode');
-const responseMessage = require('../../../constants/responseMessage');
-const db = require('../../../db/db');
-const { likeDB } = require('../../../db');
-const { paperDB } = require('../../../db');
+const util = require('./../../../lib/util');
+const statusCode = require('./../../../constants/statusCode');
+const responseMessage = require('./../../../constants/responseMessage');
+const db = require('./../../../db/db');
+const { likeDB } = require('./../../../db');
+const { paperDB } = require('./../../../db');
 
 module.exports = async (req, res) => {
   const { id } = req.params;
