@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const path = require('path');
 
 router.get('/', require('./inquiryListGET'));
 router.get('/schedule', require('./inquiryScheduleGET'));

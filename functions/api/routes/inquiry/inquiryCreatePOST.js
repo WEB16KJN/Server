@@ -1,10 +1,10 @@
 const functions = require('firebase-functions');
-const util = require('../../../lib/util');
-const statusCode = require('../../../constants/statusCode');
-const responseMessage = require('../../../constants/responseMessage');
-const db = require('../../../db/db');
-const { questionDB } = require('../../../db');
-const { fileDB } = require('../../../db');
+const util = require('./../../../lib/util');
+const statusCode = require('./../../../constants/statusCode');
+const responseMessage = require('./../../../constants/responseMessage');
+const db = require('./../../../db/db');
+const { questionDB } = require('./../../../db');
+const { fileDB } = require('./../../../db');
 
 module.exports = async (req, res) => {
     const { title,secret,name,phone,content,file} = req.body; //secret,file은 option
@@ -20,12 +20,12 @@ module.exports = async (req, res) => {
         else{s=secret;}
         const question=await questionDB.postQuestion(client,title,s,name,phone,content);
         if(file){ //파일 경로 배열 body로 받았으면
-            for(f of file){
+            for(let f of file){
                 await fileDB.postFile(client,question.id,f)
             }
         }
         if(req.files){
-            for(f of req.files){ //multer로 req.files배열 받았으면
+            for(let f of req.files){ //multer로 req.files배열 받았으면
                 await fileDB.postFile(client,question.id,f)
             }
         }
