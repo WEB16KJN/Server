@@ -42,10 +42,21 @@ module.exports = async (req, res) => {
       // is_deleted가 true면 false로 바꾸기
       // is_deleted가 false면 true로 바꾸기
       like_result = await likeDB.updateLike(client, like[0].userId, like[0].paperId, like[0].isDeleted);
+    //response로 보낼 paperResult 만들기
+    const paperResult = {
+      viewcount: paper[0].viewcount,
+      img: paper[0].img,
+      name: paper[0].name,
+      like: true,
+    };
+
+    // isdeleted가 true면 like를 false로 바꾼다.
+    if (likeResult.isDeleted) {
+      paperResult.like = false;
     }
 
     // 성공적으로 users를 가져왔다면, response를 보내줍니다.
-    res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.LIKE_SUCCESS, like_result));
+    res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.LIKE_SUCCESS, paperResult));
 
     // try문 안에서 에러가 발생했을 시 catch문으로 error객체가 넘어옵니다.
     // 이 error 객체를 콘솔에 찍어서 어디에 문제가 있는지 알아냅니다.
