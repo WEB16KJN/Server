@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.get('/', require('./searchGET'));
 
-router.post('/:userId/like', require('./searchIdLikePOST'));
+router.post('/:id/like', require('./searchIdLikePOST'));
 
 
 module.exports = router;
