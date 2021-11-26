@@ -3,7 +3,11 @@
 클라이언트-서버 합동세미나 16조 두성종이 서버
 
 ### 2. 역할 분배
-[서버 역할 분배](https://www.notion.so/77014fa0f99249bd9091fe8af9df21e5)
+| jinyoung7165 | LeeJE20 | seoljiwon |
+| --- | --- | --- |
+| 코드 세팅 | DB 세팅 | 파이어베이스 세팅 |
+| 유저 정보 가져오기 | 종이 게시글 좋아요 | 문의 리스트 보기 |
+| 문의 올리기 | 종이 게시글 검색 | 문의 리스트 날짜 필터링 |
 
 ### 3. 폴더링
 
@@ -11,7 +15,7 @@
 
 - 폴더링 구조
     
-    ![폴더링](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fe7d2b18-cc81-4489-8bb3-3d5ef17382e2/스크린샷_2021-11-20_오전_1.49.44.png)
+![image](https://user-images.githubusercontent.com/42895142/143576319-92a9c43c-1cd1-46fd-ac92-7b2a3df6f17b.png)
     
 
 ### 4. Git 사용법과 전략
@@ -169,4 +173,4 @@
 ### Base URL:
 
 ### ERD:
-![erd](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1a803637-312f-498e-b64f-596c91fa7702/Untitled.png)
+![image](https://user-images.githubusercontent.com/42895142/143576401-4ad58bde-bcad-4c00-b541-e2d239f19abe.png)
