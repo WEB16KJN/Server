@@ -1,27 +1,50 @@
 const _ = require('lodash');
 const convertSnakeToCamel = require('./../lib/convertSnakeToCamel');
 
-// 첫 번째 쿼리
-const getPaperIdLikesByUserId = async (client, user_id) => {
-  // 클라이언트 객체를 가져옴
-  // user는 postgres에서 예약된 이름이라서 "user"로 쓰는 것임
-  // 쿼리 실행 결과가 rows에 담김'
-  // 원래 data.rows로 해야 하는데 구조분해할당 한것임.
+const getLikeByPaperId = async (client, paperId) => {
   const { rows } = await client.query(
     `
-    SELECT * FROM like l
-    WHERE is_deleted = FALSE
-    AND l.user_id = $1
-    `,
-    [user_id],
+      SELECT * FROM "like" l
+      WHERE paper_id = $1
+      `,
+    [paperId],
   );
-
-  // return rows; // 이렇게 하면 snake case로 리턴됨
-  
-  // recursive하게 camel 케이스로 바뀜
-  // 즉, nested된 객체도 바뀜
-  // 모든 키가 camel 케이스로 바뀜
   return convertSnakeToCamel.keysToCamel(rows);
 };
 
-module.exports = { getPaperIdLikesByUserId,  };
+const createLikeByPaperId = async (client, userId, paperId) => {
+  const { rows } = await client.query(
+    `
+        INSERT INTO "like"
+        (user_id, paper_id)
+        VALUES
+        ($1, $2)
+        RETURNING *
+        `,
+    [userId, paperId],
+  );
+  return convertSnakeToCamel.keysToCamel(rows);
+};
+
+const updateLike = async (client, userId, paperId, isDeleted) => {
+  let newValue = true;
+
+  // isDeleted가 true인 경우 false로 바꾸기
+  if (isDeleted) {
+    newValue = false;
+  }
+
+  const { rows } = await client.query(
+    `
+      UPDATE "like" l
+      SET user_id = $1, paper_id = $2, is_deleted = $3
+      WHERE paper_id = $2
+      AND user_id = $1
+      RETURNING * 
+      `,
+    [userId, paperId, newValue],
+  );
+  return convertSnakeToCamel.keysToCamel(rows[0]);
+};
+
+module.exports = { getLikeByPaperId, createLikeByPaperId, updateLike };
