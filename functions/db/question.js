@@ -1,13 +1,15 @@
 const _ = require('lodash');
 const convertSnakeToCamel = require('./../lib/convertSnakeToCamel');
 
-const 함수이름 = async (client) => {
-    const { rows } = await client.query(
-      `
-      여기에 쿼리 작성
-      `,
-    );
+const getQuestionsByDate = async (client, start, end) => {
+  const { rows } = await client.query(
+    `
+    SELECT title, date, status FROM question
+    WHERE date >= '${start} 00:00:00'::timestamp 
+    AND  date <  '${end} 23:59:59s'::timestamp
+    `,
+  );
   return convertSnakeToCamel.keysToCamel(rows);
 };
 
-module.exports = {함수이름 };
+module.exports = { getQuestionsByDate };
