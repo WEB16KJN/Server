@@ -1,10 +1,10 @@
 const functions = require('firebase-functions');
-const util = require('../../../lib/util');
-const statusCode = require('../../../constants/statusCode');
-const responseMessage = require('../../../constants/responseMessage');
-const db = require('../../../db/db');
-const { questionDB } = require('../../../db');
-const { fileDB } = require('../../../db');
+const util = require('./../../../lib/util');
+const statusCode = require('./../../../constants/statusCode');
+const responseMessage = require('./../../../constants/responseMessage');
+const db = require('./../../../db/db');
+const { questionDB } = require('./../../../db');
+const { fileDB } = require('./../../../db');
 
 module.exports = async (req, res) => {
     const { title,secret,name,phone,content,file} = req.body; //secret,file은 option
