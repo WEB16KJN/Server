@@ -8,9 +8,7 @@ const { fileDB } = require('./../../../db');
 
 module.exports = async (req, res) => {
     const { title,secret,name,phone,content,file} = req.body; //secret,file은 option
-
     if(!title || !name || !phone || !content) return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
-
     let client;
 
     try {
@@ -21,11 +19,6 @@ module.exports = async (req, res) => {
         const question=await questionDB.postQuestion(client,title,s,name,phone,content);
         if(file){ //파일 경로 배열 body로 받았으면
             for(let f of file){
-                await fileDB.postFile(client,question.id,f)
-            }
-        }
-        if(req.files){
-            for(let f of req.files){ //multer로 req.files배열 받았으면
                 await fileDB.postFile(client,question.id,f)
             }
         }

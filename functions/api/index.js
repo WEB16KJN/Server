@@ -26,7 +26,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // request에 담긴 정보를 json 형태로 파싱하기 위한 미들웨어들
-app.use('/img',express.static(path.join(__dirname,'uploads'))); //upload한 이미지를 제공할 라우터/img를 uploads폴더와 연결
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -63,7 +62,6 @@ module.exports = functions
         !!req.params && `params ${JSON.stringify(req.params)}`
       }`,
     );
-
     // 맨 위에 선언된 express app 객체를 리턴.
     // 요것이 functions/index.js 안의 api: require("./api")에 들어가는 것.
     return app(req, res);
