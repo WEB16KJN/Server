@@ -1,13 +1,18 @@
 const _ = require('lodash');
 const convertSnakeToCamel = require('./../lib/convertSnakeToCamel');
 
-const 함수이름 = async (client) => {
+const postFile = async (client,question_id,url) => {
     const { rows } = await client.query(
       `
-      여기에 쿼리 작성
+      INSERT INTO file
+      (question_id, url)
+      VALUES
+      ($1, $2)
+      RETURNING *
       `,
+      [question_id,url]
     );
   return convertSnakeToCamel.keysToCamel(rows);
 };
 
-module.exports = {함수이름 };
+module.exports = {postFile};

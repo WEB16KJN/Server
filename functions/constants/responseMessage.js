@@ -23,4 +23,7 @@ module.exports = {
   // 조회
   READ_SUCCESS: '조회 성공',
   NO_SEARCH_RESULT: '검색 결과 없음',
+
+  //문의
+  INQUIRY_POST_SUCCESS: '문의 생성 성공'
 };
