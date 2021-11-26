@@ -11,5 +11,18 @@ const getQuestionsByDate = async (client, start, end) => {
   );
   return convertSnakeToCamel.keysToCamel(rows);
 };
+const postQuestion = async (client,title,secret,name,phone,content) => {
+  const { rows } = await client.query(
+    `
+    INSERT INTO question
+    (title,secret,nickname,phone, content,user_id)
+    VALUES
+    ($1, $2, $3, $4, $5, 1)
+    RETURNING *
+    `,
+    [title,secret,name,phone, content]
+  );
+  return convertSnakeToCamel.keysToCamel(rows[0]);
+}
 
-module.exports = { getQuestionsByDate };
+module.exports = { getQuestionsByDate ,postQuestion};
